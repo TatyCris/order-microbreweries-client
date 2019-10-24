@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
+import MicrobreweriesList from './components/MicrobreweriesList';
 import './App.css';
 
 export default class App extends Component {
@@ -7,7 +9,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <main className="App-main">
-          Hello World!
+          <Route exact path="/" component={MicrobreweriesList} />
         </main>
       </div>
     )
