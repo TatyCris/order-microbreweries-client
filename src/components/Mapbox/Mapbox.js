@@ -20,7 +20,7 @@ class Mapbox extends Component {
     }
 
     componentDidMount() {
-        this.props.getBreweriesLocation('Weverij+5%2C+Amstelveen%2C+1185+ZE')
+        this.props.getBreweriesLocation('Weverij 5 Amstelveen 1185 ZE')
     }
 
     setUserLocation = () => {
