@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactMapGL, { Marker } from "react-map-gl";
-import { getBreweriesLocation } from '../../actions/location'
 import './Mapbox.css'
 
 class Mapbox extends Component {
@@ -17,10 +16,6 @@ class Mapbox extends Component {
         },
         microbreweries: [],
         userLocation: {}
-    }
-
-    componentDidMount() {
-        this.props.getBreweriesLocation('Weverij 5 Amstelveen 1185 ZE')
     }
 
     setUserLocation = () => {
@@ -94,4 +89,4 @@ const mapStatetoProps = (state) => {
     }
 }
 
-export default connect(mapStatetoProps, { getBreweriesLocation })(Mapbox)
+export default connect(mapStatetoProps)(Mapbox)
