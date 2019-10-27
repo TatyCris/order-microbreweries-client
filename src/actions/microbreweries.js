@@ -1,4 +1,5 @@
 import * as request from 'superagent'
+import { localhost } from './constants'
 
 export const SET_MICROBREWERIES = 'SET_MICROBREWERIES'
 
@@ -11,7 +12,7 @@ export function setMicrobreweries(microbreweries) {
 
 export function getMicrobreweries() {
     return function (dispatch) {
-        request('http://localhost:4000/microbreweries')
+        request(`${localhost}/microbreweries`)
             .then(response => {
                 const res = JSON.parse(response.text)
                 dispatch(setMicrobreweries(res.breweries))

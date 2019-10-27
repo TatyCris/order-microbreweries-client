@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import ReactMapGL, { Marker } from "react-map-gl";
+import { getBreweriesLocation } from '../../actions/location'
 import './Mapbox.css'
 
-export default class Mapbox extends Component {
+class Mapbox extends Component {
     TOKEN = process.env.REACT_APP_MAPBOX_API_KEY || "pk.eyJ1IjoidGF0eWNyaXMiLCJhIjoiY2syNmdlcnZqMWRkNzNkbXE1OWVqcjhrNiJ9.qsi-EJjOzbbLfgqaLXDBdA"
 
     state = {
@@ -13,12 +15,18 @@ export default class Mapbox extends Component {
             longitude: 4.8375686,
             zoom: 8
         },
+        microbreweries: [],
         userLocation: {}
+    }
+
+    componentDidMount() {
+        this.props.getBreweriesLocation('Weverij+5%2C+Amstelveen%2C+1185+ZE')
     }
 
     setUserLocation = () => {
         navigator.geolocation.getCurrentPosition(position => {
             let setUserLocation = {
+                zip: position.zip,
                 lat: position.coords.latitude,
                 long: position.coords.longitude
             };
@@ -32,11 +40,26 @@ export default class Mapbox extends Component {
             this.setState({
                 viewport: newViewport,
                 userLocation: setUserLocation
-            });
-        });
-    };
+            })
+        })
+    }
+
+    loadBreweriesMarkers = () => {
+        return this.props.breweries.map(brewery => {
+            return (
+                <Marker
+                    key={brewery.name}
+                    latitude={parseFloat(brewery.latitude)}
+                    longitude={parseFloat(brewery.longitude)}
+                >
+                    <img src="beerIcon.png" alt="beer-icon" />
+                </Marker>
+            )
+        })
+    }
 
     render() {
+        // console.log('state', this.state.userLocation)
         return (
             <div>
                 <button onClick={this.setUserLocation}>My Location</button>
@@ -64,3 +87,11 @@ export default class Mapbox extends Component {
         )
     }
 }
+
+const mapStatetoProps = (state) => {
+    return {
+        breweries: state.microbreweries
+    }
+}
+
+export default connect(mapStatetoProps, { getBreweriesLocation })(Mapbox)
