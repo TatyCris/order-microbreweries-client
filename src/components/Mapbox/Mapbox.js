@@ -44,8 +44,8 @@ class Mapbox extends Component {
             return (
                 <Marker
                     key={brewery.name}
-                    latitude={parseFloat(brewery.latitude)}
-                    longitude={parseFloat(brewery.longitude)}
+                    latitude={brewery.center[1]}
+                    longitude={brewery.center[0]}
                 >
                     <img src="beerIcon.png" alt="beer-icon" />
                 </Marker>
@@ -70,12 +70,13 @@ class Mapbox extends Component {
                                 latitude={this.state.userLocation.lat}
                                 longitude={this.state.userLocation.long}
                             >
-                                <img className="location-icon" src="beerIcon.png" alt="beer-icon" />
+                                <img className="location-icon" src="pinIcon.png" alt="pin-icon" />
                             </Marker>
                         ) : (
                                 null
                             )
                         }
+                        {this.loadBreweriesMarkers()}
                     </ReactMapGL>
                 </div>
             </div>
