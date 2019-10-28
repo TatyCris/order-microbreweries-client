@@ -3,13 +3,16 @@ import { mapbox_host } from './constants'
 
 export const SET_DIRECTIONS = 'SET_DIRECTIONS'
 
-export function getDirections(coordinates) {
+export function getDirections(brewery, coordinates) {
     return function (dispatch) {
         const url = `https://${mapbox_host}/directions/v5/mapbox/driving/${encodeURIComponent(coordinates)}.json?access_token=${process.env.REACT_APP_MAPBOX_API_KEY}`
         request(url)
             .then(response => {
                 const res = JSON.parse(response.text)
-                dispatch(setDirections(res.routes[0]))
+                dispatch(setDirections({
+                    brewery,
+                    direction: res.routes[0]
+                }))
             })
     }
 }
