@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import microbreweries from './microbreweries'
-import search from './location'
+import userLocation from './location'
 
 export default combineReducers({
     microbreweries,
-    search
+    userLocation
 })

@@ -12,19 +12,29 @@ export function getLocation(search_text) {
         })
 }
 
-export function getZipcode(zipcode) {
+export function getCurrentPosition() {
+    return function (dispatch) {
+        navigator.geolocation.getCurrentPosition(position => {
+            dispatch(userLocation({
+                center: [position.coords.longitude, position.coords.latitude]
+            }))
+        })
+    }
+}
+
+export function getLocationFromZipcode(zipcode) {
     return async function (dispatch) {
         const center = await getLocation(zipcode)
-        dispatch(setZipcode({
+        dispatch(userLocation({
             zipcode,
             center
         }))
     }
 }
 
-export function setZipcode(user_zipcode) {
+export function userLocation(location) {
     return {
         type: SET_USER_LOCATION,
-        payload: user_zipcode
+        payload: location
     }
 }

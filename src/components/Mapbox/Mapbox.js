@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactMapGL, { Marker } from "react-map-gl";
+import { getCurrentPosition, getLocationFromZipcode } from '../../actions/location'
 import './Mapbox.css'
 
 class Mapbox extends Component {
@@ -15,31 +16,29 @@ class Mapbox extends Component {
             zoom: 8
         },
         microbreweries: [],
-        userLocation: {}
+        value: ''
     }
 
-    setUserLocation = () => {
-        navigator.geolocation.getCurrentPosition(position => {
-            let setUserLocation = {
-                zip: position.zip,
-                lat: position.coords.latitude,
-                long: position.coords.longitude
-            };
-            let newViewport = {
-                height: 400,
-                width: 400,
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-                zoom: 10
-            };
-            this.setState({
-                viewport: newViewport,
-                userLocation: setUserLocation
-            })
-        })
+    setUserLocation = (location) => {
+        if (location === 'current') {
+            this.props.getCurrentPosition()
+        }
+        if (location === 'zipcode') {
+            this.props.getLocationFromZipcode(this.state.value)
+            this.setState({ value: '' })
+        }
+        // this.setState({
+        //     viewport: {
+        //         width: 400,
+        //         height: 400,
+        //         latitude: this.props.userLocation.center[1],
+        //         longitude: this.props.userLocation.center[0],
+        //         zoom: 10
+        //     }
+        // })
     }
 
-    loadBreweriesMarkers = () => {
+    renderBreweriesMarkers = () => {
         return this.props.breweries.map(brewery => {
             return (
                 <Marker
@@ -53,11 +52,33 @@ class Mapbox extends Component {
         })
     }
 
-    render() {
-        // console.log('state', this.state.userLocation)
+    handleChange = (event) => {
+        this.setState({ value: event.target.value })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        this.setUserLocation('zipcode')
+    }
+
+    renderFormUserLocation = () => {
         return (
             <div>
-                <button onClick={this.setUserLocation}>My Location</button>
+                <form onSubmit={this.handleSubmit}>
+                    <label>Type a zip code to find the closest microbrewery:</label>
+                    <input type="text" value={this.state.value} onChange={this.handleChange}></input>
+                    <input type="submit" value="Search"></input>
+                    <label>or</label>
+                </form>
+                <button onClick={() => this.setUserLocation('current')}>Find my Location</button>
+            </div>
+        )
+    }
+
+    render() {
+        return (
+            <div>
+                {this.renderFormUserLocation()}
                 <div className='map'>
                     <ReactMapGL
                         {...this.state.viewport}
@@ -65,18 +86,18 @@ class Mapbox extends Component {
                         onViewportChange={(viewport) => this.setState({ viewport })}
                         mapboxApiAccessToken={this.TOKEN}
                     >
-                        {Object.keys(this.state.userLocation).length !== 0 ? (
+                        {Object.keys(this.props.userLocation).length !== 0 ? (
                             <Marker
-                                latitude={this.state.userLocation.lat}
-                                longitude={this.state.userLocation.long}
+                                latitude={this.props.userLocation.center[1]}
+                                longitude={this.props.userLocation.center[0]}
                             >
                                 <img className="location-icon" src="pinIcon.png" alt="pin-icon" />
                             </Marker>
                         ) : (
-                                null
+                                <div></div>
                             )
                         }
-                        {this.loadBreweriesMarkers()}
+                        {this.renderBreweriesMarkers()}
                     </ReactMapGL>
                 </div>
             </div>
@@ -86,8 +107,9 @@ class Mapbox extends Component {
 
 const mapStatetoProps = (state) => {
     return {
-        breweries: state.microbreweries
+        breweries: state.microbreweries,
+        userLocation: state.userLocation
     }
 }
 
-export default connect(mapStatetoProps)(Mapbox)
+export default connect(mapStatetoProps, { getCurrentPosition, getLocationFromZipcode })(Mapbox)
