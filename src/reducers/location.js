@@ -1,10 +1,10 @@
-import { SET_ZIPCODE_SEARCHED } from '../actions/search'
+import { SET_USER_LOCATION } from '../actions/location'
 
 const initialState = '';
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
-        case SET_ZIPCODE_SEARCHED:
+        case SET_USER_LOCATION:
             return payload
         default:
             return state
