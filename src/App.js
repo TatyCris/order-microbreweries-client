@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 // import MicrobreweriesList from './components/MicrobreweriesList';
 // import Map from './components/Map'
 import Mapbox from './components/Mapbox/Mapbox'
+import ZipCodeSearcher from './components/ZipCodeSearcher';
 import { getMicrobreweries } from './actions/microbreweries'
 import './App.css';
 
@@ -18,6 +19,7 @@ class App extends Component {
         <main className="App-main">
           {/* <Route exact path="/" component={MicrobreweriesList} /> */}
           {/* <Map /> */}
+          <ZipCodeSearcher />
           <Mapbox />
         </main>
       </div>
