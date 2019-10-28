@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactMapGL, { Marker } from "react-map-gl";
 import { getCurrentPosition, getLocationFromZipcode } from '../../actions/location'
+import { getDirections } from '../../actions/directions'
 import './Mapbox.css'
 
 class Mapbox extends Component {
@@ -36,6 +37,14 @@ class Mapbox extends Component {
         //         zoom: 10
         //     }
         // })
+    }
+
+    setDirections = () => {
+        if (this.props.userLocation.length !== 0) {
+            this.props.breweries.map(brewery => {
+                this.props.getDirections(`${this.props.userLocation.center};${brewery.center}`)
+            })
+        }
     }
 
     renderBreweriesMarkers = () => {
@@ -78,6 +87,7 @@ class Mapbox extends Component {
     render() {
         return (
             <div>
+                {this.setDirections()}
                 {this.renderFormUserLocation()}
                 <div className='map'>
                     <ReactMapGL
@@ -112,4 +122,4 @@ const mapStatetoProps = (state) => {
     }
 }
 
-export default connect(mapStatetoProps, { getCurrentPosition, getLocationFromZipcode })(Mapbox)
+export default connect(mapStatetoProps, { getCurrentPosition, getLocationFromZipcode, getDirections })(Mapbox)
