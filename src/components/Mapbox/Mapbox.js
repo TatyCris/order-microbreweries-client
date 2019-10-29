@@ -41,9 +41,7 @@ class Mapbox extends Component {
 
     setDirections = () => {
         if (this.props.userLocation.length !== 0) {
-            this.props.breweries.map(brewery => {
-                this.props.getDirections(brewery, `${this.props.userLocation.center};${brewery.center}`)
-            })
+            this.props.getDirections(this.props.breweries, this.props.userLocation)
         }
     }
 
