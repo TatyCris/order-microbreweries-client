@@ -33,7 +33,7 @@ class Mapbox extends Component {
                     latitude={brewery.center[1]}
                     longitude={brewery.center[0]}
                 >
-                    <img src="icon beerIcon.png" alt="beer-icon" />
+                    <img className="icon beer-icon" src="beerIcon.png" alt="beer-icon" />
                 </Marker>
             )
         })
