@@ -7,7 +7,7 @@ class SideBar extends Component {
     }
 
     renderBreweriesList = (brewery) => {
-        return <li>{brewery.name} - {Math.round(brewery.route.distance / 10)/100} km</li>
+        return <li key={brewery.name}>{brewery.name} - {Math.round(brewery.route.distance / 10)/100} km</li>
     }
 
     render() {

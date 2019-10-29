@@ -15,7 +15,7 @@ export function getDirections(breweries, userLocation) {
             const routes = res.map(location => location.routes[0])
             const breweriesWithLocation = breweries.map(brewery => {
                 const route = routes.shift()
-                return {...brewery, route}
+                return { ...brewery, route }
             })
             dispatch(setDirections(breweriesWithLocation))
         } catch (error) {
