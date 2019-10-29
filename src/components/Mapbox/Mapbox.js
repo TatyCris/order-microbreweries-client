@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactMapGL, { Marker } from "react-map-gl";
-import { getCurrentPosition, getLocationFromZipcode } from '../../actions/location'
 import { getDirections } from '../../actions/directions'
+import SideBar from '../SideBar';
 import './Mapbox.css'
 
 class Mapbox extends Component {
@@ -10,33 +10,13 @@ class Mapbox extends Component {
 
     state = {
         viewport: {
-            width: 400,
-            height: 400,
+            width: "100vw",
+            height: "100vh",
             latitude: 52.3723396,
             longitude: 4.8375686,
             zoom: 8
         },
-        microbreweries: [],
-        value: ''
-    }
-
-    setUserLocation = (location) => {
-        if (location === 'current') {
-            this.props.getCurrentPosition()
-        }
-        if (location === 'zipcode') {
-            this.props.getLocationFromZipcode(this.state.value)
-            this.setState({ value: '' })
-        }
-        // this.setState({
-        //     viewport: {
-        //         width: 400,
-        //         height: 400,
-        //         latitude: this.props.userLocation.center[1],
-        //         longitude: this.props.userLocation.center[0],
-        //         zoom: 10
-        //     }
-        // })
+        microbreweries: []
     }
 
     setDirections = () => {
@@ -53,43 +33,21 @@ class Mapbox extends Component {
                     latitude={brewery.center[1]}
                     longitude={brewery.center[0]}
                 >
-                    <img src="beerIcon.png" alt="beer-icon" />
+                    <img src="icon beerIcon.png" alt="beer-icon" />
                 </Marker>
             )
         })
     }
 
-    handleChange = (event) => {
-        this.setState({ value: event.target.value })
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault()
-        this.setUserLocation('zipcode')
-    }
-
-    renderFormUserLocation = () => {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>Type a zip code to find the closest microbrewery:</label>
-                    <input type="text" value={this.state.value} onChange={this.handleChange}></input>
-                    <input type="submit" value="Search"></input>
-                    <label>or</label>
-                </form>
-                <button onClick={() => this.setUserLocation('current')}>Find my Location</button>
-            </div>
-        )
-    }
-
     render() {
         return (
-            <div>
+            <div className="mapbox-container">
+                <SideBar />
                 {this.setDirections()}
-                {this.renderFormUserLocation()}
                 <div className='map'>
                     <ReactMapGL
                         {...this.state.viewport}
+                        style={{ width: '100%', height: '100%' }}
                         mapStyle='mapbox://styles/mapbox/streets-v11'
                         onViewportChange={(viewport) => this.setState({ viewport })}
                         mapboxApiAccessToken={this.TOKEN}
@@ -99,7 +57,7 @@ class Mapbox extends Component {
                                 latitude={this.props.userLocation.center[1]}
                                 longitude={this.props.userLocation.center[0]}
                             >
-                                <img className="location-icon" src="pinIcon.png" alt="pin-icon" />
+                                <img className="icon location-icon" src="pinIcon.png" alt="pin-icon" />
                             </Marker>
                         ) : (
                                 <div></div>
@@ -120,4 +78,4 @@ const mapStatetoProps = (state) => {
     }
 }
 
-export default connect(mapStatetoProps, { getCurrentPosition, getLocationFromZipcode, getDirections })(Mapbox)
+export default connect(mapStatetoProps, { getDirections })(Mapbox)
