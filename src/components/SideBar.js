@@ -65,13 +65,13 @@ class SideBar extends Component {
 
     render() {
         return (
-            <div>
+            <div className="all-bars">
                 <div className="side-bar-container">
-                    <div className="side-bar">
+                    <div className="form-wrapper">
                         {this.renderFormUserLocation()}
                     </div>
                     {this.state.breweriesList &&
-                        <div className="side-bar breweries-list">
+                        <div className="breweries-list">
                             <ul >{this.sortByDistance().map(this.renderBreweriesList)}</ul>
                         </div>
                     }
@@ -81,6 +81,11 @@ class SideBar extends Component {
                     <button className="show-all-button" onClick={() => this.handleBreweryClick('all')}>Show All</button>
                     <img className="show-all-image mobile beerIcon" onClick={() => this.handleBreweryClick('all')} src="beerIcon.png" alt="beer-icon" />
                 </div>
+                {this.state.breweriesList &&
+                    <div className="mobile-breweries-list">
+                        <ul >{this.sortByDistance().map(this.renderBreweriesList)}</ul>
+                    </div>
+                }
             </div>
         )
     }
