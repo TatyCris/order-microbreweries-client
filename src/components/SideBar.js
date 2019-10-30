@@ -5,16 +5,22 @@ import './SideBar.css'
 
 class SideBar extends Component {
     state = {
-        value: ''
+        value: '',
+        breweriesList: false
     }
 
     setUserLocation = (location) => {
         if (location === 'current') {
             this.props.getCurrentPosition()
+            setTimeout(
+                () => this.setState({ breweriesList: true }), 1000
+            )
         }
         if (location === 'zipcode') {
             this.props.getLocationFromZipcode(this.state.value)
-            this.setState({ value: '' })
+            setTimeout(
+                () => this.setState({ value: '', breweriesList: true }), 500
+            )
         }
     }
 
@@ -29,6 +35,10 @@ class SideBar extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         this.setUserLocation('zipcode')
+    }
+
+    handleBreweryClick = (event) => {
+        console.log('event', event)
     }
 
     renderFormUserLocation = () => {
@@ -47,14 +57,24 @@ class SideBar extends Component {
     }
 
     renderBreweriesList = (brewery) => {
-        return <li key={brewery.name}>{brewery.name} - {Math.round(brewery.route.distance / 10) / 100} km</li>
+        return <li key={brewery.name} onClick={this.handleBreweryClick}>
+            <div className="main-info">{brewery.name} - {Math.round(brewery.route.distance / 10) / 100} km</div>
+            <div className="extra-info">{`${brewery.address}, ${(brewery['zip code'] || brewery.zipcode)} ${brewery.city}`}</div>
+            <div className="extra-info">{`Open: ${brewery.open.join(', ')}`}</div>
+        </li>
     }
 
     render() {
         return (
             <div className="side-bar-container">
-                {this.renderFormUserLocation()}
-                <ul>{this.sortByDistance().map(this.renderBreweriesList)}</ul>
+                <div className="side-bar">
+                    {this.renderFormUserLocation()}
+                </div>
+                {this.state.breweriesList &&
+                    <div className="side-bar breweries-list">
+                        <ul >{this.sortByDistance().map(this.renderBreweriesList)}</ul>
+                    </div>
+                }
             </div>
         )
     }
