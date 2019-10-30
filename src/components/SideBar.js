@@ -44,13 +44,13 @@ class SideBar extends Component {
     renderFormUserLocation = () => {
         return (
             <div className="form-user-location">
-                <form onSubmit={this.handleSubmit}>
+                <form className="zipcode-form" onSubmit={this.handleSubmit}>
                     <div className="zipcode-search">
                         <input type="text" placeholder="zip code" onChange={this.handleChange}></input>
                         <button className="search-button" type="submit"><img className="search-icon" src="searchIcon.png" alt="search-icon" /></button>
                     </div>
                 </form>
-                <button className="my-location-button" onClick={() => this.setUserLocation('current')}>Find my Location</button>
+                <button className="find-my-location-button" onClick={() => this.setUserLocation('current')}>Find my Location</button>
             </div>
         )
     }
@@ -76,7 +76,8 @@ class SideBar extends Component {
                         </div>
                     }
                 </div>
-                <div className="right-bar">
+                <div className="buttons-bar">
+                    <img className="current-location-button" onClick={() => this.setUserLocation('current')} src="currentIcon.png" alt="current-location-icon" />
                     <button className="show-all-button" onClick={() => this.handleBreweryClick('all')}>Show All</button>
                 </div>
             </div>

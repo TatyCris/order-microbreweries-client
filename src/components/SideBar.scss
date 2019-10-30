@@ -1,12 +1,23 @@
+$desktop-size: "screen and (min-width: 768px)";
+$mobile-size: "screen and (max-width: 768px)";
+
 .side-bar-container {
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 50px;
     left: 50px;
-    // width: fit-content;
     width: 20%;
-    // height: fit-content;
+    @media #{$desktop-size} {
+        .current-location-button {
+            display: none;
+        }
+    }
+    @media #{$mobile-size} {
+        .find-my-location-button {
+            display: none;
+        }
+    }
 }
 
 .side-bar {
@@ -19,13 +30,18 @@
     font-weight: 500;
 }
 
-.right-bar {
+.buttons-bar {
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 50px;
     right: 50px;
     z-index: 10;
+    @media #{$desktop-size} {
+        .current-location-button {
+            display: none;
+        }
+    }
 }
 
 .breweries-list {
@@ -83,7 +99,7 @@ input[type='text'] {
     cursor: pointer;
 }
 
-.my-location-button {
+.find-my-location-button {
     outline: none;
     height: 31px;
     font-size: 15px;
@@ -133,4 +149,11 @@ input[type='text'] {
     color: gray;
     word-break: keep-all;
     min-width: 65px;
+}
+
+.current-location-button {
+  height: 40px;
+  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+  border-radius: 50%;
+  margin: 0 10px;
 }
