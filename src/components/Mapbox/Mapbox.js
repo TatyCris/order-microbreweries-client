@@ -57,7 +57,6 @@ class Mapbox extends Component {
     }
 
     render() {
-        console.log('render state', this.state)
         return (
             <div className="mapbox-container">
                 <SideBar breweriesMarker={this.setSelectedBrewery} />

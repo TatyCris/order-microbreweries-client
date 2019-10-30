@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getCurrentPosition, getLocationFromZipcode } from '../actions/location'
-import './SideBar.css'
+import './SideBar.scss'
 
 class SideBar extends Component {
     state = {
@@ -45,7 +45,6 @@ class SideBar extends Component {
         return (
             <div className="form-user-location">
                 <form onSubmit={this.handleSubmit}>
-                    <label>Choose to find nearby microbreweries:</label><br />
                     <div className="zipcode-search">
                         <input type="text" placeholder="zip code" onChange={this.handleChange}></input>
                         <button className="search-button" type="submit"><img className="search-icon" src="searchIcon.png" alt="search-icon" /></button>
@@ -58,7 +57,7 @@ class SideBar extends Component {
 
     renderBreweriesList = (brewery) => {
         return <li key={brewery.name} onClick={() => this.handleBreweryClick(brewery)}>
-            <div className="main-info">{brewery.name} - {Math.round(brewery.route.distance / 10) / 100} km</div>
+            <div className="main-info">{brewery.name}<span className="span-extra-info">{Math.round(brewery.route.distance / 10) / 100} km</span></div>
             <div className="extra-info">{`${brewery.address}, ${(brewery['zip code'] || brewery.zipcode)} ${brewery.city}`}</div>
             <div className="extra-info">{`Open: ${brewery.open.join(', ')}`}</div>
         </li>

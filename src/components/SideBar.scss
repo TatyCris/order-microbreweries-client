@@ -4,9 +4,9 @@
     position: absolute;
     top: 50px;
     left: 50px;
-    width: fit-content;
-    max-width: 30%;
-    height: fit-content;
+    // width: fit-content;
+    width: 20%;
+    // height: fit-content;
 }
 
 .side-bar {
@@ -44,7 +44,7 @@
 .breweries-list li {
     text-align: start;
     border-bottom: 1px solid lightgrey;
-    padding: 10px 15px;
+    padding: 10px 0px;
     text-transform: capitalize;
     cursor: pointer;
 }
@@ -68,7 +68,7 @@ input[type='text'] {
     display: flex;
     align-items: center;
     border: 1px solid lightgray;
-    width: 80%;
+    width: 90%;
     justify-content: center;
     margin: 7px auto;
     border-radius: 5px;
@@ -88,7 +88,7 @@ input[type='text'] {
     height: 31px;
     font-size: 15px;
     border: 1px solid lightgray;
-    width: 80%;
+    width: 90%;
     margin: 7px auto;
     border-radius: 5px;
     background-image: linear-gradient(to left, #FEAC5E, #C779D0, #4BC0C8);
@@ -118,10 +118,19 @@ input[type='text'] {
 
 .main-info {
     padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .extra-info {
     font-size: 13px;
     color: gray;
     margin: 5px 0;
+}
+
+.span-extra-info {
+    font-size: 13px;
+    color: gray;
+    word-break: keep-all;
+    min-width: 65px;
 }
