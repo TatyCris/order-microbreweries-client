@@ -79,6 +79,7 @@ class SideBar extends Component {
                 <div className="buttons-bar">
                     <img className="current-location-button" onClick={() => this.setUserLocation('current')} src="currentIcon.png" alt="current-location-icon" />
                     <button className="show-all-button" onClick={() => this.handleBreweryClick('all')}>Show All</button>
+                    <img className="show-all-image mobile beerIcon" onClick={() => this.handleBreweryClick('all')} src="beerIcon.png" alt="beer-icon" />
                 </div>
             </div>
         )
