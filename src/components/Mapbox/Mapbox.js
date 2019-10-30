@@ -16,7 +16,8 @@ class Mapbox extends Component {
             longitude: 4.8375686,
             zoom: 8
         },
-        microbreweries: []
+        microbreweries: [],
+        selectedBrewery: ''
     }
 
     setDirections = () => {
@@ -25,8 +26,24 @@ class Mapbox extends Component {
         }
     }
 
-    renderBreweriesMarkers = () => {
-        return this.props.breweries.map(brewery => {
+    setSelectedBrewery = (brewery) => {
+        this.setState({ selectedBrewery: brewery })
+    }
+
+    renderBreweriesMarkers = (brewery) => {
+        if (brewery === 'all') {
+            return this.props.breweries.map(brewery => {
+                return (
+                    <Marker
+                        key={brewery.name}
+                        latitude={brewery.center[1]}
+                        longitude={brewery.center[0]}
+                    >
+                        <img className="icon beer-icon" src="beerIcon.png" alt="beer-icon" />
+                    </Marker>
+                )
+            })
+        } else {
             return (
                 <Marker
                     key={brewery.name}
@@ -36,13 +53,14 @@ class Mapbox extends Component {
                     <img className="icon beer-icon" src="beerIcon.png" alt="beer-icon" />
                 </Marker>
             )
-        })
+        }
     }
 
     render() {
+        console.log('render state', this.state)
         return (
             <div className="mapbox-container">
-                <SideBar />
+                <SideBar breweriesMarker={this.setSelectedBrewery} />
                 {this.setDirections()}
                 <div className='map'>
                     <ReactMapGL
@@ -63,7 +81,7 @@ class Mapbox extends Component {
                                 <div></div>
                             )
                         }
-                        {this.renderBreweriesMarkers()}
+                        {this.state.selectedBrewery && this.renderBreweriesMarkers(this.state.selectedBrewery)}
                     </ReactMapGL>
                 </div>
             </div>

@@ -37,8 +37,8 @@ class SideBar extends Component {
         this.setUserLocation('zipcode')
     }
 
-    handleBreweryClick = (event) => {
-        console.log('event', event)
+    handleBreweryClick = (brewery) => {
+        this.props.breweriesMarker(brewery)
     }
 
     renderFormUserLocation = () => {
@@ -57,7 +57,7 @@ class SideBar extends Component {
     }
 
     renderBreweriesList = (brewery) => {
-        return <li key={brewery.name} onClick={this.handleBreweryClick}>
+        return <li key={brewery.name} onClick={() => this.handleBreweryClick(brewery)}>
             <div className="main-info">{brewery.name} - {Math.round(brewery.route.distance / 10) / 100} km</div>
             <div className="extra-info">{`${brewery.address}, ${(brewery['zip code'] || brewery.zipcode)} ${brewery.city}`}</div>
             <div className="extra-info">{`Open: ${brewery.open.join(', ')}`}</div>
@@ -66,15 +66,20 @@ class SideBar extends Component {
 
     render() {
         return (
-            <div className="side-bar-container">
-                <div className="side-bar">
-                    {this.renderFormUserLocation()}
-                </div>
-                {this.state.breweriesList &&
-                    <div className="side-bar breweries-list">
-                        <ul >{this.sortByDistance().map(this.renderBreweriesList)}</ul>
+            <div>
+                <div className="side-bar-container">
+                    <div className="side-bar">
+                        {this.renderFormUserLocation()}
                     </div>
-                }
+                    {this.state.breweriesList &&
+                        <div className="side-bar breweries-list">
+                            <ul >{this.sortByDistance().map(this.renderBreweriesList)}</ul>
+                        </div>
+                    }
+                </div>
+                <div className="right-bar">
+                    <button className="show-all-button" onClick={() => this.handleBreweryClick('all')}>Show All</button>
+                </div>
             </div>
         )
     }

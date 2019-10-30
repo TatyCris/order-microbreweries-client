@@ -19,6 +19,15 @@
     font-weight: 500;
 }
 
+.right-bar {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    z-index: 10;
+}
+
 .breweries-list {
     margin-top: 10px;
 }
@@ -74,12 +83,6 @@ input[type='text'] {
     cursor: pointer;
 }
 
-.search-icon {
-    width: 20px;
-    margin: 3px;
-    vertical-align: middle;
-}
-
 .my-location-button {
     outline: none;
     height: 31px;
@@ -92,6 +95,25 @@ input[type='text'] {
     font-weight: 600;
     color: white;
     cursor: pointer;
+}
+
+.show-all-button {
+    outline: none;
+    height: 31px;
+    font-size: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-image: linear-gradient(to left, #FEAC5E, #C779D0, #4BC0C8);
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    width: 100px;
+}
+
+.search-icon {
+    width: 20px;
+    margin: 3px;
+    vertical-align: middle;
 }
 
 .main-info {
