@@ -2,16 +2,30 @@ $desktop-size: "screen and (min-width: 768px)";
 $mobile-size: "screen and (max-width: 768px)";
 
 .all-bars {
-    @media #{$desktop-size} {
-        .mobile-breweries-list {
-            display: none;
-        }
+  @media #{$desktop-size} {
+    .mobile-breweries-list {
+      display: none;
     }
-    @media #{$mobile-size} {
-        .breweries-list {
-            display: none;
-        }
+    .form-wrapper {
+      background-color: white;
+      padding: 10px 20px;
+      border-radius: 7px;
+      font-weight: 500;
+      width: 100%;
+      z-index: 10;
     }
+    .zipcode-search {
+      margin: 7px 0;
+    }
+  }
+  @media #{$mobile-size} {
+    .breweries-list {
+      display: none;
+    }
+    .form-wrapper {
+      z-index: 10;
+    }
+  }
 }
 
 .side-bar-container {
@@ -20,13 +34,18 @@ $mobile-size: "screen and (max-width: 768px)";
   position: absolute;
   top: 50px;
   left: 50px;
-  width: 20%;
   @media #{$desktop-size} {
+    flex-direction: column;
+    top: 50px;
+    left: 50px;
+    max-width: 25%;
     .current-location-button {
       display: none;
     }
   }
   @media #{$mobile-size} {
+    top: 20px;
+    left: 10px;
     .find-my-location-button {
       display: none;
     }
@@ -36,10 +55,6 @@ $mobile-size: "screen and (max-width: 768px)";
 .form-wrapper {
   width: 100%;
   z-index: 10;
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 7px;
-  font-weight: 500;
   @media #{$desktop-size} {
   }
   @media #{$mobile-size} {
@@ -83,7 +98,7 @@ $mobile-size: "screen and (max-width: 768px)";
       height: 60px;
       border-radius: 50%;
       background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
-      margin: 0 10px;
+      margin: 0 0 0 10px;
     }
   }
 }
@@ -112,39 +127,62 @@ $mobile-size: "screen and (max-width: 768px)";
 }
 
 input[type="text"] {
-  height: 20px;
   border: 0;
   width: 100%;
   outline: none;
   font-size: 15px;
-  padding-left: 10px;
+  padding: 0 0 0 10px;
+  @media #{$desktop-size} {
+    height: 28px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  @media #{$mobile-size} {
+    height: 58px;
+    font-size: 16px;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+  }
 }
 
 .zipcode-search {
   display: flex;
   align-items: center;
-  border: 1px solid lightgray;
-  width: 90%;
   justify-content: center;
-  margin: 7px auto;
   border-radius: 5px;
+  @media #{$desktop-size} {
+    border: 1px solid lightgray;
+  }
+  @media #{$mobile-size} {
+    height: 60px;
+  }
 }
 
 .search-button {
   outline: none;
   border: 0;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
   background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
   cursor: pointer;
+  padding-top: 0;
+  @media #{$desktop-size} {
+    height: 28px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  @media #{$mobile-size} {
+    height: 58px;
+    padding: 0 10px;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+  }
 }
 
 .find-my-location-button {
   outline: none;
-  height: 31px;
+  //   height: 30px;
   font-size: 15px;
   border: 1px solid lightgray;
-  width: 90%;
+  width: 100%;
   margin: 7px auto;
   border-radius: 5px;
   background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
@@ -167,9 +205,14 @@ input[type="text"] {
 }
 
 .search-icon {
-  width: 20px;
   margin: 3px;
   vertical-align: middle;
+  @media #{$desktop-size} {
+    width: 20px;
+  }
+  @media #{$mobile-size} {
+    width: 30px;
+  }
 }
 
 .main-info {
@@ -196,4 +239,7 @@ input[type="text"] {
   background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
   border-radius: 50%;
   margin: 0 10px;
+  @media #{$mobile-size} {
+    margin: 0;
+  }
 }
