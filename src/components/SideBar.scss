@@ -29,7 +29,6 @@ $mobile-size: "screen and (max-width: 768px)";
       position: absolute;
       z-index: 10;
       bottom: 20px;
-      background-color: white;
     }
   }
 }
@@ -140,12 +139,13 @@ $mobile-size: "screen and (max-width: 768px)";
 
 .mobile-breweries-list li {
   text-align: start;
-  border-right: 1px solid lightgrey;
   padding: 10px;
   text-transform: capitalize;
   cursor: pointer;
   width: auto;
-  flex: 0 0 auto
+  flex: 0 0 auto;
+  background-color: white;
+  margin: 0 5px;
 }
 
 .form-user-location label {
@@ -247,6 +247,10 @@ input[type="text"] {
   padding-bottom: 10px;
   display: flex;
   justify-content: space-between;
+  @media #{$mobile-size} {
+    padding-bottom: 0;
+    padding-top: 10px;
+  }
 }
 
 .extra-info {
@@ -260,6 +264,25 @@ input[type="text"] {
   color: gray;
   word-break: keep-all;
   min-width: 65px;
+  @media #{$desktop-size} {
+  }
+  @media #{$mobile-size} {
+    display: none;
+  }
+}
+
+.mobile-span-extra-info {
+  font-size: 13px;
+  color: gray;
+  word-break: keep-all;
+  min-width: 65px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  @media #{$desktop-size} {
+    display: none;
+  }
+  @media #{$mobile-size} {
+  }
 }
 
 .current-location-button {
