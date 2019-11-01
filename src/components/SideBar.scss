@@ -1,0 +1,296 @@
+$desktop-size: "screen and (min-width: 768px)";
+$mobile-size: "screen and (max-width: 768px)";
+
+.all-bars {
+  @media #{$desktop-size} {
+    .mobile-breweries-list {
+      display: none;
+    }
+    .form-wrapper {
+      background-color: white;
+      padding: 10px 20px;
+      border-radius: 7px;
+      font-weight: 500;
+      width: 100%;
+      z-index: 10;
+    }
+    .zipcode-search {
+      margin: 7px 0;
+    }
+  }
+  @media #{$mobile-size} {
+    .breweries-list {
+      display: none;
+    }
+    .form-wrapper {
+      z-index: 10;
+    }
+    .mobile-breweries-list {
+      position: absolute;
+      z-index: 10;
+      bottom: 20px;
+    }
+  }
+}
+
+.side-bar-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  @media #{$desktop-size} {
+    flex-direction: column;
+    top: 50px;
+    left: 50px;
+    max-width: 25%;
+    .current-location-button {
+      display: none;
+    }
+  }
+  @media #{$mobile-size} {
+    top: 20px;
+    left: 10px;
+    .find-my-location-button {
+      display: none;
+    }
+  }
+}
+
+.form-wrapper {
+  width: 100%;
+  z-index: 10;
+  @media #{$desktop-size} {
+  }
+  @media #{$mobile-size} {
+  }
+}
+
+.breweries-list {
+  margin-top: 10px;
+  width: 100%;
+  z-index: 10;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 7px;
+  font-weight: 500;
+  @media #{$desktop-size} {
+  }
+  @media #{$mobile-size} {
+  }
+}
+
+.buttons-bar {
+  display: flex;
+  position: absolute;
+  z-index: 10;
+  @media #{$desktop-size} {
+    flex-direction: column;
+    top: 50px;
+    right: 50px;
+    .current-location-button,
+    .beerIcon {
+      display: none;
+    }
+  }
+  @media #{$mobile-size} {
+    top: 20px;
+    right: 10px;
+    .show-all-button {
+      display: none;
+    }
+    .beerIcon {
+      height: 60px;
+      border-radius: 50%;
+      background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+      margin: 0 0 0 10px;
+    }
+  }
+}
+
+.breweries-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 400px;
+}
+
+.mobile-breweries-list ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  height: 150px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.breweries-list li {
+  text-align: start;
+  border-bottom: 1px solid lightgrey;
+  padding: 10px 0px;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.mobile-breweries-list li {
+  text-align: start;
+  padding: 10px;
+  text-transform: capitalize;
+  cursor: pointer;
+  width: auto;
+  flex: 0 0 auto;
+  background-color: white;
+  margin: 0 5px;
+}
+
+.form-user-location label {
+  font-size: 15px;
+  margin: 10px;
+  line-height: 40px;
+}
+
+input[type="text"] {
+  border: 0;
+  width: 100%;
+  outline: none;
+  font-size: 15px;
+  padding: 0 0 0 10px;
+  @media #{$desktop-size} {
+    height: 28px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  @media #{$mobile-size} {
+    height: 58px;
+    font-size: 16px;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+  }
+}
+
+.zipcode-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  @media #{$desktop-size} {
+    border: 1px solid lightgray;
+  }
+  @media #{$mobile-size} {
+    height: 60px;
+  }
+}
+
+.search-button {
+  outline: none;
+  border: 0;
+  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+  cursor: pointer;
+  padding-top: 0;
+  @media #{$desktop-size} {
+    height: 28px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  @media #{$mobile-size} {
+    height: 58px;
+    padding: 0 10px;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+  }
+}
+
+.find-my-location-button {
+  outline: none;
+  //   height: 30px;
+  font-size: 15px;
+  border: 1px solid lightgray;
+  width: 100%;
+  margin: 7px auto;
+  border-radius: 5px;
+  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
+.show-all-button {
+  outline: none;
+  height: 31px;
+  font-size: 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  width: 100px;
+}
+
+.search-icon {
+  margin: 3px;
+  vertical-align: middle;
+  @media #{$desktop-size} {
+    width: 20px;
+  }
+  @media #{$mobile-size} {
+    width: 30px;
+  }
+}
+
+.main-info {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  @media #{$mobile-size} {
+    padding-bottom: 0;
+    padding-top: 10px;
+  }
+}
+
+.extra-info {
+  font-size: 13px;
+  color: gray;
+  margin: 5px 0;
+}
+
+.span-extra-info {
+  font-size: 13px;
+  color: gray;
+  word-break: keep-all;
+  min-width: 65px;
+  @media #{$desktop-size} {
+  }
+  @media #{$mobile-size} {
+    display: none;
+  }
+}
+
+.mobile-span-extra-info {
+  font-size: 13px;
+  color: gray;
+  word-break: keep-all;
+  min-width: 65px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  @media #{$desktop-size} {
+    display: none;
+  }
+  @media #{$mobile-size} {
+  }
+}
+
+.current-location-button {
+  height: 60px;
+  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+  border-radius: 50%;
+  margin: 0 10px;
+  @media #{$mobile-size} {
+    margin: 0;
+  }
+}
