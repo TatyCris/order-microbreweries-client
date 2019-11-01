@@ -1,6 +1,6 @@
 import * as request from 'superagent'
 import { getLocation } from './location'
-import { localhost } from './constants'
+import { heroku } from './constants'
 
 export const SET_MICROBREWERIES = 'SET_MICROBREWERIES'
 
@@ -14,7 +14,7 @@ export function setMicrobreweries(microbreweries) {
 export function getMicrobreweries() {
     return async function (dispatch) {
         try {
-            const response = await request(`${localhost}/microbreweries`)
+            const response = await request(`${heroku}/microbreweries`)
             const data = JSON.parse(response.text)
             const address = data.breweries.map(brewery => {
                 return brewery.address + ' ' + brewery.city + ' ' + (brewery['zip code'] || brewery.zipcode)
