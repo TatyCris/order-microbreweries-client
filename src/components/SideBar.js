@@ -39,6 +39,7 @@ class SideBar extends Component {
 
     handleBreweryClick = (brewery) => {
         this.props.breweriesMarker(brewery)
+        this.props.boundingBox(brewery.center)
     }
 
     renderFormUserLocation = () => {

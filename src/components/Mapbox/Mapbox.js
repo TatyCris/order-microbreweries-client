@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
+import WebMercatorViewport from 'viewport-mercator-project';
 import { getDirections } from '../../actions/directions'
 import SideBar from '../SideBar';
 import './Mapbox.css'
@@ -18,6 +19,37 @@ class Mapbox extends Component {
         },
         microbreweries: [],
         selectedBrewery: ''
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.userLocation !== this.props.userLocation) {
+            this.setDirections()
+        }
+        if (prevProps.directions !== this.props.directions) {
+            console.log('directions', this.props.directions.map(brewery => {
+                return brewery.center
+            }))
+        }
+    }
+
+    boundingBox = (center2) => {
+        const { longitude, latitude, zoom } = new WebMercatorViewport(this.state.viewport)
+            .fitBounds([this.props.userLocation.center, center2], {
+                padding: 50,
+                offset: [0, -100]
+            })
+
+        this.setState({
+            viewport: {
+                width: "100vw",
+                height: "100vh",
+                latitude: latitude,
+                longitude: longitude,
+                transitionDuration: 2000,
+                transitionInterpolator: new FlyToInterpolator(),
+                zoom: zoom
+            }
+        })
     }
 
     setDirections = () => {
@@ -59,8 +91,7 @@ class Mapbox extends Component {
     render() {
         return (
             <div className="mapbox-container">
-                <SideBar breweriesMarker={this.setSelectedBrewery} />
-                {this.setDirections()}
+                <SideBar breweriesMarker={this.setSelectedBrewery} boundingBox={this.boundingBox} />
                 <div className='map'>
                     <ReactMapGL
                         {...this.state.viewport}
@@ -69,14 +100,15 @@ class Mapbox extends Component {
                         onViewportChange={(viewport) => this.setState({ viewport })}
                         mapboxApiAccessToken={this.TOKEN}
                     >
-                        {Object.keys(this.props.userLocation).length !== 0 ? (
-                            <Marker
-                                latitude={this.props.userLocation.center[1]}
-                                longitude={this.props.userLocation.center[0]}
-                            >
-                                <img className="icon location-icon" src="pinIcon.png" alt="pin-icon" />
-                            </Marker>
-                        ) : (
+                        {Object.keys(this.props.userLocation).length !== 0
+                            ? (
+                                <Marker
+                                    latitude={this.props.userLocation.center[1]}
+                                    longitude={this.props.userLocation.center[0]}
+                                >
+                                    <img className="icon location-icon" src="pinIcon.png" alt="pin-icon" />
+                                </Marker>
+                            ) : (
                                 <div></div>
                             )
                         }
@@ -91,7 +123,8 @@ class Mapbox extends Component {
 const mapStatetoProps = (state) => {
     return {
         breweries: state.microbreweries,
-        userLocation: state.userLocation
+        userLocation: state.userLocation,
+        directions: state.directions
     }
 }
 
