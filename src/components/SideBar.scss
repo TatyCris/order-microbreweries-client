@@ -25,11 +25,6 @@ $mobile-size: "screen and (max-width: 768px)";
     .form-wrapper {
       z-index: 10;
     }
-    .mobile-breweries-list {
-      position: absolute;
-      z-index: 10;
-      bottom: 20px;
-    }
   }
 }
 
@@ -117,16 +112,27 @@ $mobile-size: "screen and (max-width: 768px)";
   height: 400px;
 }
 
-.mobile-breweries-list ul {
+.mobile-breweries-list-container {
+  position: absolute;
+  bottom: 20px;
+  z-index: 10;
+  width: 100%;
+}
+
+.mobile-breweries-list {
   display: flex;
-  flex-direction: row;
   list-style: none;
   padding: 0;
   margin: 0;
+  bottom: 20px;
+  z-index: 10;
+  font-weight: 500;
   flex-wrap: nowrap;
   overflow-x: auto;
   height: 150px;
+  white-space: nowrap;
   -webkit-overflow-scrolling: touch;
+  :-webkit-scrollbar {display: none};
 }
 
 .breweries-list li {
@@ -137,15 +143,13 @@ $mobile-size: "screen and (max-width: 768px)";
   cursor: pointer;
 }
 
-.mobile-breweries-list li {
+.mobile-breweries-list .list-elements {
+  background-color: white;
+  margin: 0 5px;
   text-align: start;
   padding: 10px;
   text-transform: capitalize;
-  cursor: pointer;
-  width: auto;
-  flex: 0 0 auto;
-  background-color: white;
-  margin: 0 5px;
+  width: 200px;
 }
 
 .form-user-location label {

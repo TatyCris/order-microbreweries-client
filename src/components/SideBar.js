@@ -56,7 +56,7 @@ class SideBar extends Component {
     }
 
     renderBreweriesList = (brewery) => {
-        return <li key={brewery.name} onClick={() => this.handleBreweryClick(brewery)}>
+        return <li className="list-elements" key={brewery.name} onClick={() => this.handleBreweryClick(brewery)}>
             <div className="main-info">{brewery.name}<span className="span-extra-info">{Math.round(brewery.route.distance / 10) / 100} km</span></div>
             <div className="mobile-span-extra-info">{Math.round(brewery.route.distance / 10) / 100} km</div>
             <div className="extra-info">{`${brewery.address}, ${(brewery['zip code'] || brewery.zipcode)} ${brewery.city}`}</div>
@@ -83,8 +83,8 @@ class SideBar extends Component {
                     <img className="show-all-image mobile beerIcon" onClick={() => this.handleBreweryClick('all')} src="beerIcon.png" alt="beer-icon" />
                 </div>
                 {this.state.breweriesList &&
-                    <div className="mobile-breweries-list">
-                        <ul >{this.sortByDistance().map(this.renderBreweriesList)}</ul>
+                    <div className="mobile-breweries-list-container">
+                        <ul className="mobile-breweries-list">{this.sortByDistance().map(this.renderBreweriesList)}</ul>
                     </div>
                 }
             </div>
