@@ -68,7 +68,7 @@ $mobile-size: "screen and (max-width: 768px)";
   background-color: white;
   padding: 10px 20px;
   border-radius: 7px;
-  font-weight: 500;
+  font-weight: 400;
   @media #{$desktop-size} {
   }
   @media #{$mobile-size} {
@@ -97,7 +97,7 @@ $mobile-size: "screen and (max-width: 768px)";
     .beerIcon {
       height: 60px;
       border-radius: 50%;
-      background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+      background-color: rgb(252, 234, 19);
       margin: 0 0 0 10px;
     }
   }
@@ -122,17 +122,19 @@ $mobile-size: "screen and (max-width: 768px)";
 .mobile-breweries-list {
   display: flex;
   list-style: none;
-  padding: 0;
-  margin: 0;
-  bottom: 20px;
+  padding: 10px;
+  margin: 0 10px;
+  bottom: 10px;
   z-index: 10;
   font-weight: 500;
   flex-wrap: nowrap;
   overflow-x: auto;
-  height: 150px;
+  height: 160px;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  :-webkit-scrollbar {display: none};
+  :-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .breweries-list li {
@@ -143,13 +145,29 @@ $mobile-size: "screen and (max-width: 768px)";
   cursor: pointer;
 }
 
+.breweries-list li:hover,
+.breweries-list li:active {
+  border-bottom: 3px solid rgb(252, 234, 19);
+}
+
 .mobile-breweries-list .list-elements {
   background-color: white;
-  margin: 0 5px;
+  margin: 0 10px 0 0;
   text-align: start;
   padding: 10px;
   text-transform: capitalize;
   width: 200px;
+  border-radius: 7px;
+  box-shadow: -4px 4px 4px 0px rgba(12, 107, 96, 0.342);
+}
+
+.mobile-breweries-list .list-elements:hover,
+.mobile-breweries-list .list-elements:active {
+  background-color: rgb(252, 234, 19);
+  .mobile-span-extra-info,
+  .extra-info {
+    color: rgb(46, 44, 44);
+  }
 }
 
 .form-user-location label {
@@ -193,7 +211,7 @@ input[type="text"] {
 .search-button {
   outline: none;
   border: 0;
-  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+  background-color: rgb(252, 234, 19);
   cursor: pointer;
   padding-top: 0;
   @media #{$desktop-size} {
@@ -211,15 +229,14 @@ input[type="text"] {
 
 .find-my-location-button {
   outline: none;
-  //   height: 30px;
+  height: 30px;
   font-size: 15px;
   border: 1px solid lightgray;
   width: 100%;
   margin: 7px auto;
   border-radius: 5px;
-  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
-  font-weight: 600;
-  color: white;
+  background-color: rgb(252, 234, 19);
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -227,11 +244,11 @@ input[type="text"] {
   outline: none;
   height: 31px;
   font-size: 15px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   border-radius: 5px;
-  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
-  font-weight: 600;
-  color: white;
+  background-color: rgb(252, 234, 19);
+  font-weight: 500;
+  // color: white;
   cursor: pointer;
   width: 100px;
 }
@@ -254,6 +271,8 @@ input[type="text"] {
   @media #{$mobile-size} {
     padding-bottom: 0;
     padding-top: 10px;
+    white-space: initial;
+    overflow: hidden;
   }
 }
 
@@ -261,6 +280,11 @@ input[type="text"] {
   font-size: 13px;
   color: gray;
   margin: 5px 0;
+  @media #{$mobile-size} {
+    white-space: initial;
+    overflow: hidden;
+    width: 200px;
+  }
 }
 
 .span-extra-info {
@@ -280,7 +304,7 @@ input[type="text"] {
   color: gray;
   word-break: keep-all;
   min-width: 65px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   margin-top: 5px;
   @media #{$desktop-size} {
     display: none;
@@ -291,7 +315,7 @@ input[type="text"] {
 
 .current-location-button {
   height: 60px;
-  background-image: linear-gradient(to left, #feac5e, #c779d0, #4bc0c8);
+  background-color: rgb(252, 234, 19);
   border-radius: 50%;
   margin: 0 10px;
   @media #{$mobile-size} {
