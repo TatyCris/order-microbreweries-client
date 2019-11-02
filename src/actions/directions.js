@@ -12,6 +12,7 @@ export function getDirections(breweries, userLocation) {
                 return request(url)
             }))
             const res = response.map(response => JSON.parse(response.text))
+            console.log('res', res)
             const routes = res.map(location => location.routes[0])
             const breweriesWithLocation = breweries.map(brewery => {
                 const route = routes.shift()

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
+import ReactMapGL, { Marker, FlyToInterpolator, Source, Layer } from "react-map-gl";
+import { Feature } from "react-mapbox-gl";
 import WebMercatorViewport from 'viewport-mercator-project';
 import { getDirections } from '../../actions/directions'
 import SideBar from '../SideBar';
@@ -74,6 +75,10 @@ class Mapbox extends Component {
         this.setState({ selectedBrewery: brewery })
     }
 
+    drawRoute = () => {
+        
+    }
+    
     renderBreweriesMarkers = (brewery) => {
         if (brewery === 'all') {
             return this.props.breweries.map(brewery => {
@@ -101,6 +106,16 @@ class Mapbox extends Component {
     }
 
     render() {
+        const geojson = {
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [4.8375686, 52.3723396]
+                }
+            }]
+        }
         return (
             <div className="mapbox-container">
                 <SideBar breweriesMarker={this.setSelectedBrewery} boundingBox={this.boundingBox} />
@@ -112,6 +127,38 @@ class Mapbox extends Component {
                         onViewportChange={(viewport) => this.setState({ viewport })}
                         mapboxApiAccessToken={this.TOKEN}
                     >
+                        {/* <Layer
+                            type="symbol"
+                            layout={{ "icon-image": "harbor-15" }}>
+                        </Layer> */}
+                        {/* <AddLayer
+                            type="line"
+                            id="line"
+                            source={'geojson'}
+                            paint={{
+                                'line-color': "#BF93E4",
+                                'line-width': 5,
+                                'circle-stroke-width': 1,
+                                'circle-stroke-color': '#fff',
+                                'circle-stroke-opacity': 1
+                            }}
+                            layout={{
+                                'line-join': 'round',
+                                'line-cap': 'round'
+                            }}
+                        >
+                            <Feature coordinates={[-0.132, 51.518]} />
+                            <Feature coordinates={[-0.465, 51.258]} />
+                        </AddLayer> */}
+                        <Source id="my-data" type="geojson" data={geojson}>
+                            <Layer
+                                id="point"
+                                type="circle"
+                                paint={{
+                                    'circle-radius': 10,
+                                    'circle-color': '#007cbf'
+                                }} />
+                        </Source>
                         {Object.keys(this.props.userLocation).length !== 0
                             ? (
                                 <Marker
@@ -127,7 +174,7 @@ class Mapbox extends Component {
                         {this.state.selectedBrewery && this.renderBreweriesMarkers(this.state.selectedBrewery)}
                     </ReactMapGL>
                 </div>
-            </div>
+            </div >
         )
     }
 }
