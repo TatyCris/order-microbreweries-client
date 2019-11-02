@@ -24,6 +24,18 @@ class Mapbox extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.userLocation !== this.props.userLocation) {
             this.setDirections()
+
+            this.setState({
+                viewport: {
+                    width: "100vw",
+                    height: "100vh",
+                    latitude: this.props.userLocation.center[1],
+                    longitude: this.props.userLocation.center[0],
+                    transitionDuration: 2000,
+                    transitionInterpolator: new FlyToInterpolator(),
+                    zoom: 10
+                }
+            })
         }
         if (prevProps.directions !== this.props.directions) {
             console.log('directions', this.props.directions.map(brewery => {
