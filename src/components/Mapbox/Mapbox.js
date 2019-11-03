@@ -69,8 +69,32 @@ class Mapbox extends Component {
         }
     }
 
-    drawRoute = () => {
-
+    renderLayerRoute = (brewery) => {
+        if (brewery !== 'all') {
+            const geometry = brewery.route.geometry.coordinates
+            // console.log('geometry', geometry )
+            const geojson = {
+                type: 'FeatureCollection',
+                features: [{
+                    type: 'Feature',
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: geometry
+                    }
+                }]
+            }
+            return (
+                <Source id="my-data" type="geojson" data={geojson}>
+                    <Layer
+                        id="route"
+                        type="line"
+                        paint={{
+                            'line-color': "#BF93E4",
+                            'line-width': 5,
+                        }} />
+                </Source>
+            )
+        }
     }
 
     renderBreweriesMarkers = (brewery) => {
@@ -100,19 +124,9 @@ class Mapbox extends Component {
     }
 
     render() {
-        const geojson = {
-            type: 'FeatureCollection',
-            features: [{
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [4.8375686, 52.3723396]
-                }
-            }]
-        }
         return (
             <div className="mapbox-container">
-                <SideBar breweriesMarker={this.setSelectedBrewery} boundingBox={this.boundingBox} drawRoute={this.drawRoute} />
+                <SideBar boundingBox={this.boundingBox} />
                 <div className='map'>
                     <ReactMapGL
                         {...this.state.viewport}
@@ -121,38 +135,6 @@ class Mapbox extends Component {
                         onViewportChange={(viewport) => this.setState({ viewport })}
                         mapboxApiAccessToken={this.TOKEN}
                     >
-                        {/* <Layer
-                            type="symbol"
-                            layout={{ "icon-image": "harbor-15" }}>
-                        </Layer> */}
-                        {/* <AddLayer
-                            type="line"
-                            id="line"
-                            source={'geojson'}
-                            paint={{
-                                'line-color': "#BF93E4",
-                                'line-width': 5,
-                                'circle-stroke-width': 1,
-                                'circle-stroke-color': '#fff',
-                                'circle-stroke-opacity': 1
-                            }}
-                            layout={{
-                                'line-join': 'round',
-                                'line-cap': 'round'
-                            }}
-                        >
-                            <Feature coordinates={[-0.132, 51.518]} />
-                            <Feature coordinates={[-0.465, 51.258]} />
-                        </AddLayer> */}
-                        <Source id="my-data" type="geojson" data={geojson}>
-                            <Layer
-                                id="point"
-                                type="circle"
-                                paint={{
-                                    'circle-radius': 10,
-                                    'circle-color': '#007cbf'
-                                }} />
-                        </Source>
                         {Object.keys(this.props.userLocation).length !== 0
                             ? (
                                 <Marker
@@ -166,6 +148,7 @@ class Mapbox extends Component {
                             )
                         }
                         {Object.keys(this.props.selectedBrewery).length > 0 && this.renderBreweriesMarkers(this.props.selectedBrewery)}
+                        {Object.keys(this.props.selectedBrewery).length > 0 && this.renderLayerRoute(this.props.selectedBrewery)}
                     </ReactMapGL>
                 </div>
             </div >

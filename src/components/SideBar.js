@@ -39,8 +39,9 @@ class SideBar extends Component {
     }
 
     handleBreweryClick = (brewery) => {
-        // this.props.breweriesMarker(brewery)
-        this.props.boundingBox(brewery.center)
+        if (brewery !== 'all') {
+            this.props.boundingBox(brewery.center)
+        }
         this.props.setSelectedBrewery(brewery)
     }
 
