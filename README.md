@@ -1,68 +1,76 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Order Microbreweries - Client
+This project is the client side of a full stack web-application.
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- [Intro](#Intro)
+- [Technologies used](#Technologies-used)
+- [Goals for this project](#Goals-for-this-project)
+- [Features to be implemented](#Features-to-be-implementes)
+- [My git workflow](#My-git-workflow)
+- [Setup](#Setup)
+- [Create React App](#Create-React-App)
 
-### `npm start`
+## Intro
+This is a React app, which was creadted for a technical assignment at an IT company in Netherlands.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The Backend for the following repo may be found [here](https://github.com/TatyCris/order-microbreweries-server)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**[Check out the deployed app here!](https://findabeer.netlify.com)**
 
-### `npm test`
+## Technologies used
+- React
+- React-Router
+- React-Map-Gl
+- Redux
+- Redux-Thunk
+- CSS
+- Sass
+- Superagent
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Goals for this project
+- [x] Enter a zip code and and return the closest microbrewery.
 
-### `npm run build`
+## Features to be implemented
+- [ ] Add zoom and rotation controls
+- [ ] Button to link GoogleMaps routes when selecting a microbrewery
+- [ ] Adjust zoom to show all microbreweries centered
+- [ ] Adjust zoom when selecting a microbrewery 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## My git workflow
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Here is my branching model for this project.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+master (auto deploys) ______________________
+                       \               /
+development             \_____________/- pull request
+                         \           /
+feature/some-feature      \_commits_/- pull request
+```
 
-### `npm run eject`
+## Setup
+In order to run this App please ensure you have the server running as well. 
+Instructions on how to do that may be found [here](https://github.com/TatyCris/order-microbreweries-server)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+In order to render the map, fetch directions and get locations from zipcode please ensure to set a valid token for the Mapbox API as an environment variable. You can create a *.env.local* file to set the variable like the model found at the *.env* file.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- git clone
+```bash
+$ git clone https://github.com/TatyCris/order-microbreweries-client.git
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- npm install
+```bash
+$ npm install
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- npm start
+```bash
+$ npm start
+```
 
-## Learn More
+## Create React App
+This project was scaffolded using the create-react-app cli. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**[The standard create-react-app docs can be found in here](https://github.com/facebook/create-react-app)**
