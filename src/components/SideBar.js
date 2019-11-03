@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getCurrentPosition, getLocationFromZipcode } from '../actions/location'
 import { setSelectedBrewery } from '../actions/microbreweries'
+import { getAllBeers, getBeersFromBrewery } from '../actions/beers'
 import './SideBar.scss'
 
 class SideBar extends Component {
     state = {
         value: '',
-        breweriesList: false
+        breweriesList: false,
+        beers: ''
     }
 
     setUserLocation = (location) => {
@@ -45,6 +47,12 @@ class SideBar extends Component {
         this.props.setSelectedBrewery(brewery)
     }
 
+    handleAvailableBeersClick = (breweryName) => {
+        this.setState({beers: breweryName})
+        // this.props.getBeersFromBrewery(breweryName)
+        this.props.getAllBeers()
+    }
+
     renderFormUserLocation = () => {
         return (
             <div className="form-user-location">
@@ -65,10 +73,20 @@ class SideBar extends Component {
             <div className="mobile-span-extra-info">{Math.round(brewery.route.distance / 10) / 100} km</div>
             <div className="extra-info">{`${brewery.address}, ${(brewery['zip code'] || brewery.zipcode)} ${brewery.city}`}</div>
             <div className="extra-info">{`Open: ${brewery.open.map(day => day.slice(0, 3)).join(', ')}`}</div>
+            <button className="availables-beers-button" onClick={() => this.handleAvailableBeersClick(brewery.name)}>Available beers</button>
         </li>
     }
 
+    // renderAvailablesBeers = () => {
+    //     return (
+    //         <div>
+
+    //         </div>
+    //     )
+    // }
+
     render() {
+        console.log('state', this.state)
         return (
             <div className="all-bars">
                 <div className="side-bar-container">
@@ -98,8 +116,15 @@ class SideBar extends Component {
 
 const mapStatetoProps = (state) => {
     return {
-        directions: state.directions
+        directions: state.directions,
+        beers: state.beers
     }
 }
 
-export default connect(mapStatetoProps, { getCurrentPosition, getLocationFromZipcode, setSelectedBrewery })(SideBar)
+export default connect(mapStatetoProps, { 
+    getCurrentPosition,
+    getLocationFromZipcode,
+    setSelectedBrewery,
+    getAllBeers,
+    getBeersFromBrewery
+})(SideBar)
