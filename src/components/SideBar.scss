@@ -106,6 +106,10 @@ $mobile-size: "screen and (max-width: 768px)";
   }
 }
 
+.beer-icon {
+  transform: translate(-15px, -15px);
+}
+
 .breweries-list ul {
   list-style: none;
   padding: 0;

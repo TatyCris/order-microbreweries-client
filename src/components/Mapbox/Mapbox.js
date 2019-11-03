@@ -89,9 +89,14 @@ class Mapbox extends Component {
                         id="route"
                         type="line"
                         paint={{
-                            'line-color': "#BF93E4",
-                            'line-width': 5,
-                        }} />
+                            "line-color": "#BF93E4",
+                            "line-width": 5,
+                        }}
+                        layout={{
+                            "line-join": "round",
+                            "line-cap": "round"
+                        }}
+                    />
                 </Source>
             )
         }
