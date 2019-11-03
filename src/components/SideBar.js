@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getCurrentPosition, getLocationFromZipcode } from '../actions/location'
+import { setSelectedBrewery } from '../actions/microbreweries'
 import './SideBar.scss'
 
 class SideBar extends Component {
@@ -38,8 +39,9 @@ class SideBar extends Component {
     }
 
     handleBreweryClick = (brewery) => {
-        this.props.breweriesMarker(brewery)
+        // this.props.breweriesMarker(brewery)
         this.props.boundingBox(brewery.center)
+        this.props.setSelectedBrewery(brewery)
     }
 
     renderFormUserLocation = () => {
@@ -99,4 +101,4 @@ const mapStatetoProps = (state) => {
     }
 }
 
-export default connect(mapStatetoProps, { getCurrentPosition, getLocationFromZipcode })(SideBar)
+export default connect(mapStatetoProps, { getCurrentPosition, getLocationFromZipcode, setSelectedBrewery })(SideBar)

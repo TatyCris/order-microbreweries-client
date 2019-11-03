@@ -3,11 +3,19 @@ import { getLocation } from './location'
 import { heroku } from './constants'
 
 export const SET_MICROBREWERIES = 'SET_MICROBREWERIES'
+export const SET_SELECTED_BREWERY = 'SET_SELECTED_BREWERY'
 
 export function setMicrobreweries(microbreweries) {
     return {
         type: SET_MICROBREWERIES,
         payload: microbreweries
+    }
+}
+
+export function setSelectedBrewery(brewery) {
+    return {
+        type: SET_SELECTED_BREWERY,
+        payload: brewery
     }
 }
 

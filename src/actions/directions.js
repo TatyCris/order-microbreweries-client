@@ -12,11 +12,12 @@ export function getDirections(breweries, userLocation) {
                 return request(url)
             }))
             const res = response.map(response => JSON.parse(response.text))
-            console.log('res', res)
             const routes = res.map(location => location.routes[0])
+            const directions = res.map(location => location.waypoints)
             const breweriesWithLocation = breweries.map(brewery => {
                 const route = routes.shift()
-                return { ...brewery, route }
+                const waypoints = directions.shift()
+                return { ...brewery, route, waypoints }
             })
             dispatch(setDirections(breweriesWithLocation))
         } catch (error) {

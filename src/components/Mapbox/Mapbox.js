@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactMapGL, { Marker, FlyToInterpolator, Source, Layer } from "react-map-gl";
-import { Feature } from "react-mapbox-gl";
 import WebMercatorViewport from 'viewport-mercator-project';
 import { getDirections } from '../../actions/directions'
 import SideBar from '../SideBar';
@@ -19,7 +18,6 @@ class Mapbox extends Component {
             zoom: 8
         },
         microbreweries: [],
-        selectedBrewery: ''
     }
 
     componentDidUpdate(prevProps) {
@@ -71,14 +69,10 @@ class Mapbox extends Component {
         }
     }
 
-    setSelectedBrewery = (brewery) => {
-        this.setState({ selectedBrewery: brewery })
+    drawRoute = () => {
+
     }
 
-    drawRoute = () => {
-        
-    }
-    
     renderBreweriesMarkers = (brewery) => {
         if (brewery === 'all') {
             return this.props.breweries.map(brewery => {
@@ -118,7 +112,7 @@ class Mapbox extends Component {
         }
         return (
             <div className="mapbox-container">
-                <SideBar breweriesMarker={this.setSelectedBrewery} boundingBox={this.boundingBox} />
+                <SideBar breweriesMarker={this.setSelectedBrewery} boundingBox={this.boundingBox} drawRoute={this.drawRoute} />
                 <div className='map'>
                     <ReactMapGL
                         {...this.state.viewport}
@@ -171,7 +165,7 @@ class Mapbox extends Component {
                                 <div></div>
                             )
                         }
-                        {this.state.selectedBrewery && this.renderBreweriesMarkers(this.state.selectedBrewery)}
+                        {Object.keys(this.props.selectedBrewery).length > 0 && this.renderBreweriesMarkers(this.props.selectedBrewery)}
                     </ReactMapGL>
                 </div>
             </div >
@@ -183,7 +177,8 @@ const mapStatetoProps = (state) => {
     return {
         breweries: state.microbreweries,
         userLocation: state.userLocation,
-        directions: state.directions
+        directions: state.directions,
+        selectedBrewery: state.selectedBrewery
     }
 }
 
