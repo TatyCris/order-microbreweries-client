@@ -180,6 +180,12 @@ $mobile-size: "screen and (max-width: 768px)";
   .span-extra-beer-info {
     padding: 0 4px 0 2px;
   }
+  .button-close-beers {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 5px 10px 15px 15px;
+  }
 }
 
 .mobile-breweries-list-container {
@@ -213,6 +219,11 @@ $mobile-size: "screen and (max-width: 768px)";
   padding: 10px 0px;
   text-transform: capitalize;
   cursor: pointer;
+  @media #{$desktop-size} {
+    .mobile-availables-beers-button {
+      display: none;
+    }
+  }
 }
 
 .breweries-list li:hover,
@@ -221,6 +232,7 @@ $mobile-size: "screen and (max-width: 768px)";
 }
 
 .mobile-breweries-list .list-elements {
+  position: relative;
   background-color: white;
   margin: 0 10px 0 0;
   text-align: start;
@@ -229,6 +241,18 @@ $mobile-size: "screen and (max-width: 768px)";
   width: 200px;
   border-radius: 7px;
   box-shadow: -4px 4px 4px 0px rgba(12, 107, 96, 0.342);
+  .availables-beers-button {
+    display: none;
+  }
+  .mobile-availables-beers-button {
+    height: 30px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: rgb(252, 234, 19);
+    border-radius: 50%;
+    padding: 1px 1px 2px 4px;
+  }
 }
 
 .mobile-breweries-list .list-elements:hover,

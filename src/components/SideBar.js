@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getCurrentPosition, getLocationFromZipcode } from '../actions/location'
 import { setSelectedBrewery } from '../actions/microbreweries'
-import { getAllBeers, getBeersFromBrewery } from '../actions/beers'
+import { getBeersFromBrewery } from '../actions/beers'
 import './SideBar.scss'
 
 class SideBar extends Component {
     state = {
         value: '',
         breweriesList: false,
-        beers: ''
+        beers: '',
+        closeBeers: false
     }
 
     setUserLocation = (location) => {
@@ -48,9 +49,12 @@ class SideBar extends Component {
     }
 
     handleAvailableBeersClick = (breweryName) => {
-        this.setState({ beers: breweryName })
+        this.setState({ beers: breweryName, closeBeers: false })
         this.props.getBeersFromBrewery(breweryName)
-        // this.props.getAllBeers()
+    }
+
+    closeBeersList = () => {
+        this.setState({ closeBeers: true })
     }
 
     renderFormUserLocation = () => {
@@ -74,6 +78,7 @@ class SideBar extends Component {
             <div className="extra-info">{`${brewery.address}, ${(brewery['zip code'] || brewery.zipcode)} ${brewery.city}`}</div>
             <div className="extra-info">{`Open: ${brewery.open.map(day => day.slice(0, 3)).join(', ')}`}</div>
             <button className="availables-beers-button" onClick={() => this.handleAvailableBeersClick(brewery.name)}>Available beers</button>
+            <img className="mobile-availables-beers-button" onClick={() => this.handleAvailableBeersClick(brewery.name)} src="caskIcon.png" alt="cask-icon" />
         </li>
     }
 
@@ -115,8 +120,11 @@ class SideBar extends Component {
                     <button className="show-all-button" onClick={() => this.handleBreweryClick('all')}>Show All</button>
                     <img className="show-all-image mobile beerIcon" onClick={() => this.handleBreweryClick('all')} src="beerIcon.png" alt="beer-icon" />
                 </div>
-                {this.props.beers.length > 0 &&
-                    <div className="mobile-beers-list">{this.renderAvailablesBeers(this.props.beers)}</div>
+                {(this.props.beers.length > 0 && !this.state.closeBeers) &&
+                    <div className="mobile-beers-list">
+                        <div className="button-close-beers" onClick={this.closeBeersList}>x</div>
+                        {this.renderAvailablesBeers(this.props.beers)}
+                    </div>
                 }
                 {this.state.breweriesList &&
                     <div className="mobile-breweries-list-container">
@@ -139,6 +147,5 @@ export default connect(mapStatetoProps, {
     getCurrentPosition,
     getLocationFromZipcode,
     setSelectedBrewery,
-    getAllBeers,
     getBeersFromBrewery
 })(SideBar)
