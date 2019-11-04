@@ -48,9 +48,9 @@ class SideBar extends Component {
     }
 
     handleAvailableBeersClick = (breweryName) => {
-        this.setState({beers: breweryName})
-        // this.props.getBeersFromBrewery(breweryName)
-        this.props.getAllBeers()
+        this.setState({ beers: breweryName })
+        this.props.getBeersFromBrewery(breweryName)
+        // this.props.getAllBeers()
     }
 
     renderFormUserLocation = () => {
@@ -77,16 +77,24 @@ class SideBar extends Component {
         </li>
     }
 
-    // renderAvailablesBeers = () => {
-    //     return (
-    //         <div>
-
-    //         </div>
-    //     )
-    // }
+    renderAvailablesBeers = (beers) => {
+        return beers.map(beer => {
+            return (
+                <div className="beer-container">
+                    <div className="beer-info">{beer.name}<span className="span-extra-beer-info">({beer.alcohol}%)</span></div>
+                    <div className="extra-beer-info">
+                        <div>Style: {beer.style}</div>
+                        <div>Keg: {beer.keg} - {beer.volume}l</div>
+                    </div>
+                    <div className="mobile-extra-beer-info">
+                        <div>{beer.style} - {beer.keg} - {beer.volume}l</div>
+                    </div>
+                </div>
+            )
+        })
+    }
 
     render() {
-        console.log('state', this.state)
         return (
             <div className="all-bars">
                 <div className="side-bar-container">
@@ -98,12 +106,18 @@ class SideBar extends Component {
                             <ul >{this.sortByDistance().map(this.renderBreweriesList)}</ul>
                         </div>
                     }
+                    {this.props.beers.length > 0 &&
+                        <div className="beers-list">{this.renderAvailablesBeers(this.props.beers)}</div>
+                    }
                 </div>
                 <div className="buttons-bar">
                     <img className="current-location-button" onClick={() => this.setUserLocation('current')} src="currentIcon.png" alt="current-location-icon" />
                     <button className="show-all-button" onClick={() => this.handleBreweryClick('all')}>Show All</button>
                     <img className="show-all-image mobile beerIcon" onClick={() => this.handleBreweryClick('all')} src="beerIcon.png" alt="beer-icon" />
                 </div>
+                {this.props.beers.length > 0 &&
+                    <div className="mobile-beers-list">{this.renderAvailablesBeers(this.props.beers)}</div>
+                }
                 {this.state.breweriesList &&
                     <div className="mobile-breweries-list-container">
                         <ul className="mobile-breweries-list">{this.sortByDistance().map(this.renderBreweriesList)}</ul>
@@ -121,7 +135,7 @@ const mapStatetoProps = (state) => {
     }
 }
 
-export default connect(mapStatetoProps, { 
+export default connect(mapStatetoProps, {
     getCurrentPosition,
     getLocationFromZipcode,
     setSelectedBrewery,

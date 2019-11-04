@@ -36,11 +36,11 @@ class Mapbox extends Component {
                 }
             })
         }
-        if (prevProps.directions !== this.props.directions) {
-            console.log('directions', this.props.directions.map(brewery => {
-                return brewery.center
-            }))
-        }
+        // if (prevProps.directions !== this.props.directions) {
+        //     console.log('directions', this.props.directions.map(brewery => {
+        //         return brewery.center
+        //     }))
+        // }
     }
 
     boundingBox = (center2) => {

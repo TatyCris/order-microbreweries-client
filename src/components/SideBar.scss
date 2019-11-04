@@ -3,7 +3,8 @@ $mobile-size: "screen and (max-width: 768px)";
 
 .all-bars {
   @media #{$desktop-size} {
-    .mobile-breweries-list {
+    .mobile-breweries-list,
+    .mobile-beers-list {
       display: none;
     }
     .form-wrapper {
@@ -19,7 +20,8 @@ $mobile-size: "screen and (max-width: 768px)";
     }
   }
   @media #{$mobile-size} {
-    .breweries-list {
+    .breweries-list,
+    .beers-list {
       display: none;
     }
     .form-wrapper {
@@ -77,6 +79,38 @@ $mobile-size: "screen and (max-width: 768px)";
   }
 }
 
+.beers-list {
+  margin-top: 10px;
+  width: 100%;
+  z-index: 10;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 7px;
+  font-weight: 400;
+  @media #{$desktop-size} {
+    .mobile-extra-beer-info {
+      display: none;
+    }
+  }
+  .beer-info {
+    display: flex;
+    font-size: 14px;
+  }
+  .extra-beer-info {
+    font-size: 13px;
+    color: gray;
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 2px;
+    justify-content: space-between;
+  }
+  .span-extra-beer-info {
+    font-size: 13px;
+    // color: gray;
+    min-width: 65px;
+  }
+}
+
 .buttons-bar {
   display: flex;
   position: absolute;
@@ -116,7 +150,36 @@ $mobile-size: "screen and (max-width: 768px)";
   margin: 0;
   overflow: hidden;
   overflow-y: scroll;
-  height: 400px;
+  height: 350px;
+}
+
+.mobile-beers-list {
+  position: absolute;
+  bottom: 200px;
+  z-index: 10;
+  background-color: white;
+  margin: 0 10px;
+  width: calc(100% - 40px);
+  border-radius: 7px;
+  font-weight: 400;
+  padding: 10px;
+  .beer-container {
+    display: flex;
+    padding: 5px 0;
+  }
+  .mobile-extra-beer-info {
+    color: gray;
+  }
+  .extra-beer-info {
+    display: none;
+  }
+  .beer-info {
+    display: flex;
+    font-size: 14px;
+  }
+  .span-extra-beer-info {
+    padding: 0 4px 0 2px;
+  }
 }
 
 .mobile-breweries-list-container {
@@ -129,7 +192,7 @@ $mobile-size: "screen and (max-width: 768px)";
 .mobile-breweries-list {
   display: flex;
   list-style: none;
-  padding: 10px;
+  padding: 10px 10px 10px 0;
   margin: 0 10px;
   bottom: 10px;
   z-index: 10;
