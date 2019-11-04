@@ -10,7 +10,16 @@ class SideBar extends Component {
         value: '',
         breweriesList: false,
         beers: '',
-        closeBeers: false
+        openBeers: false
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log(prevState)
+        if (prevState.openBeers !== this.state.openBeers) {
+            if (this.state.openBeers !== false) {
+                this.handleAvailableBeersClick(this.state.openBeers) 
+            }
+        }
     }
 
     setUserLocation = (location) => {
@@ -42,19 +51,20 @@ class SideBar extends Component {
     }
 
     handleBreweryClick = (brewery) => {
+        console.log(brewery.name)
         if (brewery !== 'all') {
             this.props.boundingBox(brewery.center)
         }
         this.props.setSelectedBrewery(brewery)
+        this.setState({openBeers: brewery.name})
     }
 
     handleAvailableBeersClick = (breweryName) => {
-        this.setState({ beers: breweryName, closeBeers: false })
-        this.props.getBeersFromBrewery(breweryName)
+        this.setState({ openBeers: breweryName }, () => this.props.getBeersFromBrewery(breweryName))
     }
 
     closeBeersList = () => {
-        this.setState({ closeBeers: true })
+        this.setState({ openBeers: false })
     }
 
     renderFormUserLocation = () => {
@@ -89,7 +99,7 @@ class SideBar extends Component {
     renderAvailablesBeers = (beers) => {
         return beers.map(beer => {
             return (
-                <div className="beer-container">
+                <div className="beer-container" key={beer.name}>
                     <div className="beer-info">{beer.name}<span className="span-extra-beer-info">({beer.alcohol}%)</span></div>
                     <div className="extra-beer-info">
                         <div>Style: {beer.style}</div>
@@ -124,7 +134,7 @@ class SideBar extends Component {
                     <button className="show-all-button" onClick={() => this.handleBreweryClick('all')}>Show All</button>
                     <img className="show-all-image mobile beerIcon" onClick={() => this.handleBreweryClick('all')} src="beerIcon.png" alt="beer-icon" />
                 </div>
-                {(this.props.beers.length > 0 && !this.state.closeBeers) &&
+                {(this.props.beers.length > 0 && this.state.openBeers) &&
                     <div className="mobile-beers-list">
                         <div className="button-close-beers" onClick={this.closeBeersList}>x</div>
                         {this.renderAvailablesBeers(this.props.beers)}
