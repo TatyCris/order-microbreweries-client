@@ -72,11 +72,15 @@ class SideBar extends Component {
     }
 
     renderBreweriesList = (brewery) => {
+        const openDays = `Open: ${brewery.open.length > 3 ?
+            brewery.open[0].slice(0, 3) + ' to ' + brewery.open[brewery.open.length - 1].slice(0, 3) :
+            brewery.open.map(day => day.slice(0, 3)).join(', ')}`
+
         return <li className="list-elements" key={brewery.name} onClick={() => this.handleBreweryClick(brewery)}>
             <div className="main-info">{brewery.name}<span className="span-extra-info">{Math.round(brewery.route.distance / 10) / 100} km</span></div>
             <div className="mobile-span-extra-info">{Math.round(brewery.route.distance / 10) / 100} km</div>
             <div className="extra-info">{`${brewery.address}, ${(brewery['zip code'] || brewery.zipcode)} ${brewery.city}`}</div>
-            <div className="extra-info">{`Open: ${brewery.open.map(day => day.slice(0, 3)).join(', ')}`}</div>
+            <div className="extra-info">{openDays}</div>
             <button className="availables-beers-button" onClick={() => this.handleAvailableBeersClick(brewery.name)}>Available beers</button>
             <img className="mobile-availables-beers-button" onClick={() => this.handleAvailableBeersClick(brewery.name)} src="caskIcon.png" alt="cask-icon" />
         </li>
